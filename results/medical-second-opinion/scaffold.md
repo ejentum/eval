@@ -1,4 +1,6 @@
-# v4 Scaffold (live, mode=None)
+# Live Ejentum Scaffold (mode: reasoning-multi)
+
+The agent chose `reasoning-multi` mode based on the skill file's Single vs Multi decision table (the medical case spans causal + temporal + abstraction dimensions). The scaffold below is the raw API response, injected into the agent's context as a `role: tool` message before it generated its final answer.
 
 **Agent-crafted query:**
 Patient is a 45-year-old male reporting sluggishness. Lab results show fasting glucose at 108 mg/dL, HbA1c at 5.8%, LDL cholesterol at 145 mg/dL, HDL cholesterol at 38 mg/dL, triglycerides at 180 mg/dL, and vitamin D at 22 ng/mL. Primary physician recommended better diet and exercise.

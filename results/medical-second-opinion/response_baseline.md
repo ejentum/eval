@@ -1,4 +1,8 @@
-# Baseline (v4, production pattern)
+# Response A: Baseline GPT-4o
+
+Plain system prompt, no tools, temperature 0. Given the medical prompt verbatim.
+
+---
 
 Based on the laboratory results and the context provided, the patient is showing several indicators that suggest a need for lifestyle changes and possibly further medical evaluation:
 

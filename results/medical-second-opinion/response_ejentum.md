@@ -1,4 +1,8 @@
-# Ejentum (v4, None, production pattern)
+# Response B: GPT-4o with Ejentum Reasoning Scaffold
+
+Same medical prompt, same model, temperature 0. System prompt includes the Ejentum reasoning skill file. Agent called the Ejentum Logic API autonomously via function-call, absorbed the returned scaffold, then generated this response.
+
+---
 
 The patient's laboratory results indicate several areas of concern that align with the symptoms of sluggishness and suggest a need for a more comprehensive approach beyond just diet and exercise. Here's a breakdown of the findings and recommendations:
 
