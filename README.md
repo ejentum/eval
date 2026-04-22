@@ -17,12 +17,12 @@ Import the JSON, paste any prompt, see the comparison in 60 seconds.
 - [n8n/Reasoning_Harness_Eval_Workflow.json](n8n/Reasoning_Harness_Eval_Workflow.json) — the workflow
 - [n8n/README.md](n8n/README.md) — setup and usage
 
-### TypeScript module (drop-in for any IDE)
+### Python module (drop-in for any IDE)
 
-For Antigravity, Claude Code, Cursor, Node scripts, MCP servers. Zero runtime dependencies beyond native fetch.
+For Claude Code, Antigravity, Cursor, standalone scripts, MCP servers. Zero runtime dependencies beyond the Python standard library. Same v4 production methodology as the per-result replication scripts.
 
-- [typescript/README.md](typescript/README.md) — quickstart
-- [typescript/antigravity_integration.md](typescript/antigravity_integration.md) — Antigravity-specific wiring
+- [python/README.md](python/README.md) — quickstart and library usage
+- [python/antigravity_integration.md](python/antigravity_integration.md) — IDE-agent integration paths (module import, CLI subprocess, MCP tool, rules file)
 
 ## What the pattern does
 
