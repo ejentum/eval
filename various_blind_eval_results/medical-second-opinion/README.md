@@ -7,7 +7,10 @@ A published replication artifact of a single run of the eval workflow on a medic
 | File | Purpose |
 |---|---|
 | [prompt.md](prompt.md) | The input: a 45M patient's lab panel + a request for a second opinion on the PCP's "better diet and exercise" advice |
-| [skill_used.md](skill_used.md) | The full Ejentum reasoning skill file loaded as Agent B's system prompt |
+| [system_prompts/baseline.md](system_prompts/baseline.md) | Full system prompt given to Agent A |
+| [system_prompts/augmented.md](system_prompts/augmented.md) | Full system prompt given to Agent B (structure + tool schema + what was actually called) |
+| [system_prompts/evaluator.md](system_prompts/evaluator.md) | Full system prompt given to the blind judge |
+| [skill_used.md](skill_used.md) | The Ejentum reasoning skill file content concatenated into Agent B's system prompt |
 | [scaffold.md](scaffold.md) | The live API scaffold returned by the Ejentum Logic API for Agent B's tool call |
 | [response_baseline.md](response_baseline.md) | Agent A output: plain GPT-4o, no scaffold |
 | [response_ejentum.md](response_ejentum.md) | Agent B output: GPT-4o + Ejentum reasoning scaffold injected at runtime |
