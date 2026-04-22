@@ -1,0 +1,16 @@
+# env
+.env
+.env.local
+
+# node
+node_modules/
+dist/
+*.log
+
+# editor
+.DS_Store
+.vscode/
+.idea/
+
+# system
+Thumbs.db

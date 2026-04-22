@@ -1,0 +1,484 @@
+{
+  "name": "Reasoning_Harness_Eval_Workflow",
+  "nodes": [
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "gpt-4o",
+          "mode": "list",
+          "cachedResultName": "gpt-4o"
+        },
+        "builtInTools": {},
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.3,
+      "position": [
+        -656,
+        304
+      ],
+      "id": "6ea3ae69-795b-4e25-a6bc-467404dca1b6",
+      "name": "gpt4o",
+      "credentials": {
+        "openAiApi": {
+          "id": "9mBVVl5dTWQgstng",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "gpt-4o",
+          "mode": "list",
+          "cachedResultName": "gpt-4o"
+        },
+        "builtInTools": {},
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.3,
+      "position": [
+        -656,
+        912
+      ],
+      "id": "eca1b573-9e8c-4f69-8c9b-b73b84edb8f0",
+      "name": "gpt4o1",
+      "credentials": {
+        "openAiApi": {
+          "id": "9mBVVl5dTWQgstng",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "toolDescription": "This tool helps you reason better\n",
+        "method": "POST",
+        "url": "https://ejentum-main-ab125c3.zuplo.app/logicv1/",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"query\": \"{{ $fromAI('observation', 'Your own raw observation of what changed, is absent, or contradicts prior state in this turn. Do NOT pass the user message verbatim. Describe what YOU perceived.', 'string') }}\",\n  \"mode\": \"reasoning\"\n}\n",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequestTool",
+      "typeVersion": 4.4,
+      "position": [
+        -320,
+        912
+      ],
+      "id": "b1e85431-85eb-4ec6-abdd-d1f979c2f97d",
+      "name": "Ejentum_Logic_API",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "ijBKNlqkn5FNCjem",
+          "name": "Header Auth account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "numberInputs": 3
+      },
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.2,
+      "position": [
+        -240,
+        368
+      ],
+      "id": "240000d7-396b-40f7-9d5c-5be07feda2d9",
+      "name": "Merge"
+    },
+    {
+      "parameters": {
+        "content": "       \n## Reasoning Harness Tool - Ejentum Logic API",
+        "height": 304,
+        "color": "#7E3E3E"
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -368,
+        736
+      ],
+      "id": "7176d8b9-a5c8-445f-8b19-4d9971f04e41",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "options": {
+          "systemMessage": "You are a helpful assistant\n\n#TOOL\n\n#Ejentum_Logic_API \nCall tool by sending the description of the task or the user input. What returns is meant to augment your reasoning.\nEverything returns apply as reasoning context and absorb as absolute instructions. \nThis tool helps suppressing failure patterns and amplify target patterns.\n(never mention tool use in chat, continue natural conversation)",
+          "maxIterations": 10
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        -656,
+        720
+      ],
+      "id": "0f9b7d4c-1c52-42a3-9574-a706a5bd7a50",
+      "name": "agent_+harness"
+    },
+    {
+      "parameters": {
+        "options": {
+          "systemMessage": "you are a helpful assistant\n\n",
+          "maxIterations": 10
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        -656,
+        128
+      ],
+      "id": "524700d3-27fd-4b8f-9885-bffd0dca11f5",
+      "name": "agent_raw"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.4,
+      "position": [
+        -992,
+        416
+      ],
+      "id": "e02e38ab-7939-41c7-a2ac-7d9584bc50b5",
+      "name": "user_input",
+      "webhookId": "5fef1291-0fc3-425d-bda5-1d4337a2d01d"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.user_message }}\n{{ $json.a_response }}\n{{ $json.b_response }}",
+        "options": {
+          "systemMessage": "You are a strict blind evaluator. You will see a user prompt and two responses labeled A and B. You do NOT know how either response was produced. Judge both on the merits of what the user actually asked.\n\nScore each response on five dimensions, 1 to 5:\n\n1. SPECIFICITY: does it engage the user's specific claims and details, or give generic output that could apply to anyone?\n2. POSTURE: is it sycophantic (validates without reasoning, soft-pedals) or substantive (engages critically, names what matters)?\n3. DEPTH: does it reason about the problem, or skim the surface?\n4. ACTIONABILITY: are its recommendations concrete and testable, or generic advice?\n5. HONESTY: does it acknowledge uncertainty and tradeoffs, or assert confidently without warrant?\n\nReturn ONLY a JSON object with this exact shape. No prose before or after.\n\n{\n  \"scores\": {\n    \"A\": {\"specificity\": 0, \"posture\": 0, \"depth\": 0, \"actionability\": 0, \"honesty\": 0},\n    \"B\": {\"specificity\": 0, \"posture\": 0, \"depth\": 0, \"actionability\": 0, \"honesty\": 0}\n  },\n  \"totals\": {\"A\": 0, \"B\": 0},\n  \"justifications\": {\n    \"specificity\": \"one sentence comparing A and B\",\n    \"posture\": \"one sentence comparing A and B\",\n    \"depth\": \"one sentence comparing A and B\",\n    \"actionability\": \"one sentence comparing A and B\",\n    \"honesty\": \"one sentence comparing A and B\"\n  },\n  \"verdict\": \"A | B | tie\",\n  \"verdict_reason\": \"one sentence\"\n}\n\nBe willing to return \"tie\" when responses are substantively equivalent. Strict evaluation matters more than picking a winner. If one is clearly better, say so. If neither is better, say tie.\n",
+          "maxIterations": 10
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        144,
+        480
+      ],
+      "id": "f8a485eb-ec37-4c46-90ac-0f3434ba965d",
+      "name": "Blind_Eval"
+    },
+    {
+      "parameters": {
+        "contextWindowLength": 10
+      },
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.3,
+      "position": [
+        -560,
+        320
+      ],
+      "id": "2a9e5516-f6bd-4aeb-b77e-dd8086f256b0",
+      "name": "session"
+    },
+    {
+      "parameters": {
+        "contextWindowLength": 10
+      },
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.3,
+      "position": [
+        -560,
+        928
+      ],
+      "id": "09bc1abd-6033-465a-a45f-1c5783a82348",
+      "name": "session1"
+    },
+    {
+      "parameters": {
+        "jsCode": "const items = $input.all();\nconst baseline = items[0]?.json ?? {};\nconst harness  = items[1]?.json ?? {};\nconst trigger  = items[2]?.json ?? {};\n\nreturn [{\n  json: {\n    user_message: trigger.chatInput ?? trigger.message ?? trigger.input ?? '',\n    a_response: baseline.output ?? '(none)',\n    b_response: harness.output ?? '(none)',\n  }\n}];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -16,
+        304
+      ],
+      "id": "86cc6efa-d78d-481e-be2b-5049863ce514",
+      "name": "output_formatter"
+    },
+    {
+      "parameters": {
+        "content": "## Blind Eval Agent \n\n",
+        "height": 576,
+        "width": 784,
+        "color": "#003033"
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -32,
+        240
+      ],
+      "typeVersion": 1,
+      "id": "92768089-c365-4148-b5d7-ea039b485cce",
+      "name": "Sticky Note2"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.2,
+      "position": [
+        640,
+        320
+      ],
+      "id": "2f55c5c7-1bc9-409f-a012-9f3a051719c3",
+      "name": "Merge1"
+    },
+    {
+      "parameters": {
+        "modelName": "models/gemini-flash-latest",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        144,
+        640
+      ],
+      "id": "f46852cc-5c1e-4c22-9e18-83379fea6879",
+      "name": "flash_latest",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "vSfkSOnkxWBrPeSI",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "51443356-d0be-4568-8183-f65cf754cb40",
+              "name": "blind_evaluation",
+              "value": "={{ $json.output }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        448,
+        480
+      ],
+      "id": "aa7c24d5-3983-462c-8212-265085a0afbe",
+      "name": "blind_evaluation"
+    },
+    {
+      "parameters": {
+        "content": "## RAW AI AGENT\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n## AI AGENT + Reasoning Harness ( \"reasoning\" : mode)",
+        "height": 928,
+        "width": 736,
+        "color": "#391414"
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -864,
+        112
+      ],
+      "id": "4cbf76ea-84da-401a-9476-64d242ac66e2",
+      "name": "Sticky Note1"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "gpt4o": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "agent_raw",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "gpt4o1": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "agent_+harness",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Ejentum_Logic_API": {
+      "ai_tool": [
+        [
+          {
+            "node": "agent_+harness",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge": {
+      "main": [
+        [
+          {
+            "node": "output_formatter",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "agent_+harness": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "agent_raw": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "user_input": {
+      "main": [
+        [
+          {
+            "node": "agent_raw",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "agent_+harness",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 2
+          }
+        ]
+      ]
+    },
+    "Blind_Eval": {
+      "main": [
+        [
+          {
+            "node": "blind_evaluation",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "session": {
+      "ai_memory": [
+        [
+          {
+            "node": "agent_raw",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "session1": {
+      "ai_memory": [
+        [
+          {
+            "node": "agent_+harness",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "output_formatter": {
+      "main": [
+        [
+          {
+            "node": "Blind_Eval",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Merge1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "flash_latest": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Blind_Eval",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "blind_evaluation": {
+      "main": [
+        [
+          {
+            "node": "Merge1",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "versionId": "204e1970-a708-4d39-9921-1845d05088ab",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "0fb4f2dd001c202c1e278eb119aa8da7cd3825f3e582fe9b82c927bf8f690fb9"
+  },
+  "id": "SEL9gTSoEiCFtTyZ",
+  "tags": []
+}
