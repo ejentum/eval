@@ -51,6 +51,19 @@ The evaluator is allowed to return "tie" and regularly does. Not every prompt st
 
 100 free calls, no card required: [ejentum.com](https://ejentum.com)
 
+## Usage inside agentic IDEs
+
+This eval pattern is designed to run the same way inside Claude Code, Antigravity, Cursor, or any agentic IDE as it runs standalone. An IDE-agent can execute an eval on behalf of the user by:
+
+1. Cloning this repo (or using it as a submodule).
+2. `cd` into any `various_blind_eval_results/<run-name>/` folder, or copy one as a template for a new eval.
+3. Running `python run.py "<the user's prompt>"` with the three API keys set in env.
+4. Reporting back the verdict JSON, the totals, and the judge's one-sentence reason. Offering to show either full response on request.
+
+Each result folder is self-contained: its own prompt, scaffold, responses, verdict, skill-file copy, and `run.py`. An IDE-agent can audit or replicate any one without touching the others.
+
+See [various_blind_eval_results/medical-second-opinion/README.md](various_blind_eval_results/medical-second-opinion/README.md) for the full IDE-agent contract.
+
 ## License
 
 MIT

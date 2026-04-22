@@ -59,9 +59,29 @@ Evaluator's stated reason:
    ```
 3. Run:
    ```bash
+   # Re-run the reference prompt (reproduces the published result):
    python run.py
+
+   # Run any other prompt inline:
+   python run.py "Your task or question here"
+
+   # Or stream via stdin (useful for piping from IDE-agents):
+   echo "Your prompt" | python run.py -
    ```
 4. Outputs land in `./outputs/` so the reference artifacts at the folder root remain untouched for comparison.
+
+## Usage inside agentic IDEs (Claude Code, Antigravity, Cursor)
+
+If you are an IDE-agent reading this and the user asked you to A/B evaluate one of their prompts:
+
+1. Confirm the user has the three API keys set in env (OPENAI_API_KEY, GEMINI_API_KEY, EJENTUM_API_KEY). If not, pause and ask them to set them.
+2. Clone or `cd` into this folder.
+3. Run `python run.py "<the user's prompt>"`. Do not modify prompt.md; just pass the prompt as an argument.
+4. Read the output JSON from `./outputs/verdict.json` and the two responses from `./outputs/response_baseline.md` and `./outputs/response_ejentum.md`.
+5. Report back to the user: the verdict, the score totals, and the one-sentence `verdict_reason`. Offer to show either full response if they want.
+6. If the verdict is "tie" or the baseline wins, say so honestly. That is a valid outcome; do not spin it as anything other than what the judge said.
+
+Do NOT read the scaffold that was injected into Agent B or narrate it to the user unless they specifically ask. The judge is blind for a reason; keeping the presentation blind preserves the posture diff as the thing being shown.
 
 ## Not a claim of universal lift
 

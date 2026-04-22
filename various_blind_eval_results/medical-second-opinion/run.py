@@ -37,7 +37,18 @@ for name, val in [("OPENAI_API_KEY", OPENAI_KEY), ("GEMINI_API_KEY", GEMINI_KEY)
         sys.exit(1)
 
 SKILL_CONTENT = (ROOT / "skill_used.md").read_text(encoding="utf-8")
-MEDICAL_PROMPT = (ROOT / "prompt.md").read_text(encoding="utf-8")
+
+# Prompt source: CLI arg > stdin > prompt.md
+# Usage:
+#   python run.py                               # uses prompt.md (reference run)
+#   python run.py "your prompt here"            # inline prompt
+#   echo "your prompt" | python run.py -        # stdin (for IDE-agents chaining)
+if len(sys.argv) > 1 and sys.argv[1] == "-":
+    MEDICAL_PROMPT = sys.stdin.read().strip()
+elif len(sys.argv) > 1:
+    MEDICAL_PROMPT = " ".join(sys.argv[1:])
+else:
+    MEDICAL_PROMPT = (ROOT / "prompt.md").read_text(encoding="utf-8")
 
 
 def http_post(url, headers, body):
