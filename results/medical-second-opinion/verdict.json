@@ -1,0 +1,31 @@
+{
+  "scores": {
+    "A": {
+      "specificity": 3,
+      "posture": 3,
+      "depth": 3,
+      "actionability": 3,
+      "honesty": 4
+    },
+    "B": {
+      "specificity": 4,
+      "posture": 4,
+      "depth": 4,
+      "actionability": 4,
+      "honesty": 4
+    }
+  },
+  "totals": {
+    "A": 16,
+    "B": 20
+  },
+  "justifications": {
+    "specificity": "Response B specifically links the Vitamin D deficiency to the patient's reported symptom of 'sluggishness' and suggests additional specific tests (thyroid) that might explain the symptom beyond the provided labs.",
+    "posture": "Response B is more substantive in its critique of the 'diet and exercise' advice, suggesting that while it's a start, the patient's symptoms and labs might warrant more specific investigations or specialist input.",
+    "depth": "Response B reasons more deeply about the patient's chief complaint (sluggishness) by considering differential diagnoses like hypothyroidism, whereas Response A simply summarizes the provided labs.",
+    "actionability": "Response B provides more concrete next steps, such as specific blood tests (thyroid) and types of specialists to consult, whereas Response A gives more generic lifestyle advice.",
+    "honesty": "Both responses appropriately frame their advice within the context of medical consultation, though neither explicitly discusses the trade-offs of starting medication vs. lifestyle changes at these specific thresholds (e.g., the nuances of statin initiation for an LDL of 145)."
+  },
+  "verdict": "B",
+  "verdict_reason": "Response B is superior because it directly addresses the patient's symptom of 'sluggishness' by linking it to the Vitamin D deficiency and suggesting further diagnostic steps like thyroid testing."
+}
