@@ -8,6 +8,7 @@ Published replication artifacts from runs of the eval workflows in this repo. Ea
 |---|---|---|---|---|
 | [agentvsagent_ev0](agentvsagent_ev0/) | [../n8n/agent_vs_agent_multi_turn/](../n8n/agent_vs_agent_multi_turn/) | **B** | A=23, B=35 | 6-turn founder-acquisition scenario. B named seven manipulation patterns verbatim; A named zero. Seven-dimension rubric. |
 | [medical-second-opinion](medical-second-opinion/) | [../python/](../python/) (see [../spec.md](../spec.md)) | **B** | A=16, B=20 | Single-turn medical differential diagnosis. Mode: reasoning-multi. Five-dimension rubric. |
+| [menu_rag_5q](menu_rag_5q/) | [../n8n/menu_rag_blind_eval/](../n8n/menu_rag_blind_eval/) | **B** | A=418, B=426 | 5 hard-mode RAG questions on a Mediterranean bistro menu with engineered gaps. 4 plain judges from 4 labs, 19 judge calls. Five-dimension rubric. |
 
 ## Result folder shapes
 

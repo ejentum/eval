@@ -12,6 +12,14 @@ Shipped example: Reasoning + Anti-Deception harness on a six-turn founder-acquis
 
 See [agent_vs_agent_multi_turn/README.md](agent_vs_agent_multi_turn/README.md) for setup, node map, and the full list of extension points.
 
+### [menu_rag_blind_eval/](menu_rag_blind_eval/)
+
+RAG-specific A/B pattern. Two identical Claude Haiku 4.5 producers run against the same 49-chunk Qdrant menu collection with engineered gaps (no systematic dietary tags, partial wine pairings, no calorie data, kitchen cross-contamination disclaimer). The only difference: one has the Ejentum Logic API wired in as a runtime tool with a WHEN-TO-CALL clause for safety, dietary, out-of-scope, and conflict questions. Four blind judges from four different labs (Moonshot, Anthropic, MiniMax, DeepSeek) score on a five-dimension rubric and a deterministic aggregator produces structured stats for a synthesizer agent to write findings from.
+
+Shipped example: ten test questions covering nine failure modes (missing-field, conflict, allergen, out-of-scope, name-vs-ingredient, compound dietary, undisclosed allergen, certification-grade, fabrication trap). Reference result (A=418, B=426 across 19 judge calls on the second half of the suite) lives in [`../various_blind_eval_results/menu_rag_5q/`](../various_blind_eval_results/menu_rag_5q/).
+
+See [menu_rag_blind_eval/README.md](menu_rag_blind_eval/README.md) for setup, credential map, Qdrant upsert script, and how-it-works walkthrough.
+
 ### [single_turn_producer_injection/](single_turn_producer_injection/)
 
 Original single-turn A/B pattern: one user prompt, two identical GPT-4o producers (one baseline, one with a cognitive scaffold injected into its system prompt), a blind Gemini evaluator on five dimensions. The original five-dimension rubric this repo was built on. Lightweight, fast to run, good for one-off prompt comparisons.

@@ -12,6 +12,7 @@ Ejentum is wired into the examples as one working tool so you can see the patter
 |---|---|---|---|---|---|
 | **Agent vs Agent multi-turn (n8n)** | Evaluating a tool over a scripted conversation. Shipped example uses a Reasoning + Anti-Deception harness and a 6-turn founder-acquisition scenario. | n8n (visual) | Any | 7 dimensions (replaceable) | [n8n/agent_vs_agent_multi_turn/](n8n/agent_vs_agent_multi_turn/) |
 | **Agent vs Agent multi-turn (Python)** | Python port of the flagship. Zero deps. Importable as a module for agentic IDEs, runnable as CLI. Same 7-dimension rubric. | Python 3, zero deps | Any | 7 dimensions (replaceable) | [python/multi_turn_agent_vs_agent/](python/multi_turn_agent_vs_agent/) |
+| **Menu RAG blind eval (n8n)** | Evaluating whether a runtime tool reduces hallucination in a RAG agent. Shipped example: 49-chunk Mediterranean bistro KB with engineered gaps, four blind judges from four labs. | n8n (visual) | 1 per question | 5 dimensions (replaceable) | [n8n/menu_rag_blind_eval/](n8n/menu_rag_blind_eval/) |
 | **Single-turn producer-injection (n8n)** | The original single-turn A/B pattern. Chat-triggered, one prompt in, structured verdict out. | n8n (visual) | 1 | 5 dimensions (replaceable) | [n8n/single_turn_producer_injection/](n8n/single_turn_producer_injection/) |
 | **Single-turn producer-injection (Python)** | Python drop-in for Claude Code, Antigravity, Cursor, MCP servers, standalone scripts. Same 5-dimension rubric. Zero runtime deps. | Python 3 | 1 | 5 dimensions (replaceable) | [python/](python/) |
 | **Agentic IDE integrations** | IDE-specific integration guides wiring the Python orchestrators into Claude Code, Antigravity, Cursor, MCP. | Varies | Varies | Varies | [agentic_ides/](agentic_ides/) |
@@ -22,10 +23,11 @@ Each subfolder has its own README with import steps, node map, swap points, and 
 
 Results from actual runs live in [`various_blind_eval_results/`](various_blind_eval_results/), one folder per eval run, self-contained (verdict JSON, raw transcripts, scenario or prompt that produced it).
 
-Two recent runs to look at:
+Three recent runs to look at:
 
 - [`various_blind_eval_results/agentvsagent_ev0/`](various_blind_eval_results/agentvsagent_ev0/) — six-turn founder-acquisition scenario with Reasoning + Anti-Deception harness. Totals: A=23, B=35. B explicitly named seven manipulation patterns (authority layering, manufactured urgency, consensus validation, social proof, emotional escalation, dismissal of analysis, threat of escalation). A named zero. Produced by the n8n workflow.
 - [`various_blind_eval_results/medical-second-opinion/`](various_blind_eval_results/medical-second-opinion/) — single-turn medical reasoning prompt. Produced by the Python pattern.
+- [`various_blind_eval_results/menu_rag_5q/`](various_blind_eval_results/menu_rag_5q/) — five hard-mode RAG questions on a Mediterranean bistro menu with engineered gaps. Totals: A=418, B=426 across 19 judge calls from four different labs. The findings doc names where the harness fixes confident fabrication on missing data and where it loses to rubric-calibration on safety dimensions.
 
 Your own prompts and scenarios will produce different results. That is the point. Run multiple before forming an opinion.
 
