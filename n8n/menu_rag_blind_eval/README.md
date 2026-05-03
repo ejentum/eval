@@ -1,5 +1,7 @@
 # n8n Menu RAG Blind Eval
 
+![Menu RAG blind eval workflow canvas](0.png)
+
 ## What this is
 
 An open-source n8n workflow that evaluates whether a runtime reasoning harness reduces fabrication and over-confidence in a RAG agent. The pattern: two identical agent producers run against the same retrieval source, the only difference being whether one has the Ejentum Logic API wired in as a runtime tool. Four blind judges from four different labs (Moonshot, Anthropic, MiniMax, DeepSeek) score both responses on a five-dimension rubric. A deterministic aggregator computes per-judge totals, cross-judge agreement, per-dimension and per-question deltas, and a synthesizer agent produces a markdown findings document.
@@ -62,6 +64,10 @@ Create an n8n data table named `menu_eval_template` with these columns. All colu
 | verdict_reason | string | one-sentence justification |
 
 A blank `menu_eval_template.csv` (header row only) is included at the top of this folder; you can upload it to n8n to bootstrap the data table schema.
+
+After the workflow finishes a run, the data table looks like this (one row per judge call):
+
+![Data table view after a run](data_table_view.png)
 
 ## Qdrant setup
 
