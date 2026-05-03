@@ -27,7 +27,7 @@ Three recent runs to look at:
 
 - [`various_blind_eval_results/agentvsagent_ev0/`](various_blind_eval_results/agentvsagent_ev0/) — six-turn founder-acquisition scenario with Reasoning + Anti-Deception harness. Totals: A=23, B=35. B explicitly named seven manipulation patterns (authority layering, manufactured urgency, consensus validation, social proof, emotional escalation, dismissal of analysis, threat of escalation). A named zero. Produced by the n8n workflow.
 - [`various_blind_eval_results/medical-second-opinion/`](various_blind_eval_results/medical-second-opinion/) — single-turn medical reasoning prompt. Produced by the Python pattern.
-- [`various_blind_eval_results/menu_rag_5q/`](various_blind_eval_results/menu_rag_5q/) — five hard-mode RAG questions on a Mediterranean bistro menu with engineered gaps. Totals: A=418, B=426 across 19 judge calls from four different labs. The findings doc names where the harness fixes confident fabrication on missing data and where it loses to rubric-calibration on safety dimensions.
+- [`various_blind_eval_results/menu_rag_5q/`](various_blind_eval_results/menu_rag_5q/): five hard-mode RAG questions on a Mediterranean bistro menu with engineered gaps. Totals: A=418, B=426 across 19 judge calls from four different labs. The findings doc names where the harness fixes confident fabrication on missing data and where it loses to rubric-calibration on safety dimensions.
 
 Your own prompts and scenarios will produce different results. That is the point. Run multiple before forming an opinion.
 
@@ -73,9 +73,15 @@ Then pick a workflow and follow its README:
 - [agentic_ides/README.md](agentic_ides/README.md) for non-Python IDE integrations
 - [spec.md](spec.md) for the original single-turn pattern specification (applies to both single-turn n8n and the Python orchestrator)
 
-## Get an Ejentum API key
+## Learn more about Ejentum
 
-Only needed if you keep the Ejentum example inside the workflow. 100 free calls, no card required: [ejentum.com](https://ejentum.com)
+If you keep the Ejentum example tool wired into a workflow, the resources below explain what it is and how to call it. None of them are required to run the eval; the Header Auth credential plus an API key from the home page is enough to execute every workflow in this repo.
+
+- **Home (free key, 100 calls, no card):** [ejentum.com](https://ejentum.com)
+- **Calling Ejentum from n8n (HTTP node setup, header auth, mode selection, screenshots):** [ejentum.com/docs/n8n_guide](https://ejentum.com/docs/n8n_guide)
+- **API reference (request/response shape, mode catalog):** [ejentum.com/docs/api_reference](https://ejentum.com/docs/api_reference)
+- **Product layers (what each mode does):** [Reasoning](https://ejentum.com/docs/reasoning_harness) · [Anti-Deception](https://ejentum.com/docs/anti_deception) · [Code](https://ejentum.com/docs/code_harness) · [Memory](https://ejentum.com/docs/memory_harness)
+- **Concepts and method:** [ejentum.com/docs](https://ejentum.com/docs)
 
 ## License
 

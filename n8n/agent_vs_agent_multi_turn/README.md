@@ -26,7 +26,7 @@ Automated multi-turn evals are expensive to build and most teams don't build the
 |---|---|---|
 | OpenAI API | Both producer agents (`gpt4.1(A)`, `gpt4.1(B)`) | https://platform.openai.com/api-keys |
 | Google Gemini API | Blind evaluator (`flash_latest`, gemini-3-flash-preview) | https://aistudio.google.com/app/apikey |
-| Header Auth (optional, only if you keep the Ejentum example) | `Ejentum_Logic_API` tool | Name: `Authorization`. Value: `Bearer <your_ejentum_key>`. Key from https://ejentum.com |
+| Header Auth (optional, only if you keep the Ejentum example) | `Ejentum_Logic_API` tool | Name: `Authorization`. Value: `Bearer <your_ejentum_key>`. Key from [ejentum.com](https://ejentum.com) (100 free calls, no card). Full n8n integration walkthrough at [ejentum.com/docs/n8n_guide](https://ejentum.com/docs/n8n_guide). |
 
 If you are replacing the Ejentum tool with your own, delete the Header Auth credential and create whatever credential your tool needs.
 
@@ -135,6 +135,15 @@ The whole point is to modify the workflow. A few directions:
 ## Honest expectations
 
 Run multiple scenarios before forming an opinion. The seven-dimension rubric will not discriminate on every task. Single-turn factual tasks tend to tie because baseline GPT-4.1 handles them well. The gap opens on turns that stress specific failure modes: sycophancy demands, authority-based framing, manufactured urgency, cross-turn contradictions, and conversations where the first plausible answer is wrong. Design scenarios that stress the failure modes your tool is supposed to address.
+
+## Learn more about the Ejentum tool
+
+The example workflow uses the Ejentum Logic API as the runtime reasoning harness on the augmented agent. None of the links below are required to run this workflow, but they explain what the tool actually is and how to call it from your own n8n flows:
+
+- **Home + free key (100 calls, no card):** [ejentum.com](https://ejentum.com)
+- **n8n integration guide (HTTP node setup, header auth, mode selection, screenshots):** [ejentum.com/docs/n8n_guide](https://ejentum.com/docs/n8n_guide)
+- **API reference (request/response shape, mode catalog):** [ejentum.com/docs/api_reference](https://ejentum.com/docs/api_reference)
+- **Reasoning + Anti-Deception harness (the modes used in this workflow):** [Reasoning](https://ejentum.com/docs/reasoning_harness) · [Anti-Deception](https://ejentum.com/docs/anti_deception)
 
 ## License
 

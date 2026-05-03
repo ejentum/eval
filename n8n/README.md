@@ -29,3 +29,9 @@ See [single_turn_producer_injection/README.md](single_turn_producer_injection/RE
 ## Add your own
 
 Create a new subfolder at this level (`n8n/your_workflow_name/`). Inside, put the workflow JSON, a README describing setup and swap points, and a `screenshots/` folder. Add a row to this index pointing to it. Keep workflows isolated from each other so their assets don't bleed.
+
+## Calling Ejentum from n8n
+
+Each workflow above ships with the Ejentum Logic API wired in as the example tool. If you want context on how to set up the HTTP node, configure header auth, pick a mode, or read responses, the canonical walkthrough is at [ejentum.com/docs/n8n_guide](https://ejentum.com/docs/n8n_guide). The raw request/response contract is at [ejentum.com/docs/api_reference](https://ejentum.com/docs/api_reference). Free key (100 calls, no card): [ejentum.com](https://ejentum.com).
+
+You do not need any of these to run the workflows in this repo: bind the Header Auth credential per each workflow's setup table and click execute. The guide is for when you want to swap modes, build your own n8n integration around the tool, or understand what the harness is actually returning.

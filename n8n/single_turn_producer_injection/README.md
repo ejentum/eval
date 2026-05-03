@@ -54,3 +54,12 @@ For the host-agnostic pattern definition (roles, fairness requirements, intentio
 ## Sample result
 
 A single-turn Python port of this pattern produced [`../../various_blind_eval_results/medical-second-opinion/`](../../various_blind_eval_results/medical-second-opinion/), which uses the same scaffold-injection pattern and the same five-dimension rubric.
+
+## Learn more about the Ejentum tool
+
+The `Ejentum_Logic_API` HTTP tool is the runtime reasoning harness wired into the augmented agent. None of the links below are required to run the pattern, but they explain what the tool actually is and how to call it from your own n8n flows:
+
+- **Home + free key (100 calls, no card):** [ejentum.com](https://ejentum.com)
+- **n8n integration guide (HTTP node setup, header auth, mode selection, screenshots):** [ejentum.com/docs/n8n_guide](https://ejentum.com/docs/n8n_guide)
+- **API reference (request/response shape, mode catalog):** [ejentum.com/docs/api_reference](https://ejentum.com/docs/api_reference)
+- **Product layers (what each mode does):** [Reasoning](https://ejentum.com/docs/reasoning_harness) · [Anti-Deception](https://ejentum.com/docs/anti_deception) · [Code](https://ejentum.com/docs/code_harness) · [Memory](https://ejentum.com/docs/memory_harness)

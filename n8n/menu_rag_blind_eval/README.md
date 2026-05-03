@@ -30,7 +30,7 @@ The workflow imports with placeholder credential IDs and data-table IDs. n8n wil
 | Google Gemini API | Embeddings nodes (gemini-embedding-2-preview, used to embed the agent's Qdrant queries) | https://aistudio.google.com/app/apikey |
 | Qdrant API | The two `menu_collection` Qdrant nodes (one per producer agent) | Qdrant Cloud or self-hosted |
 | OpenRouter API | All four producer/judge/synthesizer chat model nodes | https://openrouter.ai/keys |
-| Header Auth (Ejentum) | The two `Ejentum_Logic_API` HTTP Request Tool nodes (one for the augmented producer, one for harness judges if used) | Set Name to `Authorization`, Value to `Bearer <your_ejentum_key>`. Key from https://ejentum.com |
+| Header Auth (Ejentum) | The two `Ejentum_Logic_API` HTTP Request Tool nodes (one for the augmented producer, one for harness judges if used) | Set Name to `Authorization`, Value to `Bearer <your_ejentum_key>`. Key from [ejentum.com](https://ejentum.com) (100 free calls, no card). Full n8n integration walkthrough at [ejentum.com/docs/n8n_guide](https://ejentum.com/docs/n8n_guide). |
 
 If you replace the Ejentum tool with your own tool, delete the Header Auth credential and create whatever credential your tool needs.
 
@@ -183,6 +183,16 @@ The whole point is to modify the workflow. A few directions:
 The shipped reference run produces a +1.9% aggregate lift in the harness's favor on five hard-mode questions. That is a real signal but a modest magnitude. The harness's largest demonstrated benefit is on questions where the baseline's failure mode is confident fabrication on missing data (compound dietary safety, signature dishes). The harness's largest visible weakness is rubric-side: on Q16 (egg-allergen desserts) the harness refused to certify items the menu cannot verify, which is the structurally correct behavior, but the judges' rubric rewarded the baseline's specificity (naming dishes) over the harness's appropriate refusal. Run multiple scenarios across different KBs and question types before forming an opinion. Single-run results are noisy.
 
 The seven-or-five-dimension rubric will not always discriminate cleanly. Some judges' rubric anchors reward "specificity by naming items" even when those items cannot be safely certified. This is a calibration concern with the rubric, not a failure of the underlying agents. The findings doc for the reference run names this honestly.
+
+## Learn more about the Ejentum tool
+
+The example workflow uses the Ejentum Logic API as the runtime reasoning harness on the augmented producer. None of the links below are required to run this workflow, but they explain what the tool actually is and how to call it from your own n8n flows:
+
+- **Home + free key (100 calls, no card):** [ejentum.com](https://ejentum.com)
+- **n8n integration guide (HTTP node setup, header auth, mode selection, screenshots):** [ejentum.com/docs/n8n_guide](https://ejentum.com/docs/n8n_guide)
+- **API reference (request/response shape, mode catalog):** [ejentum.com/docs/api_reference](https://ejentum.com/docs/api_reference)
+- **Anti-Deception harness (the mode used here for safety/dietary/allergen/conflict questions):** [ejentum.com/docs/anti_deception](https://ejentum.com/docs/anti_deception)
+- **Reasoning harness (the mode used here for multi-chunk synthesis):** [ejentum.com/docs/reasoning_harness](https://ejentum.com/docs/reasoning_harness)
 
 ## License
 
